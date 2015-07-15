@@ -48,3 +48,10 @@ td {
   top: 15px;
   left: 400px;
 }
+
+.almost-out-of-space {
+	outline-color: #FA7D2D;
+}
+.out-of-space {
+	outline-color: #FF0000;
+}

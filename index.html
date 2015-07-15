@@ -2,11 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hurst Call Log</title>
+  <title>Hurst Item Tracker</title>
   <link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		function textCounter(field,field2,maxLimit)
+		{
+			var countfield = document.getElementById(field2);
+			if (field.value.length > maxLimit) {
+				field.value = field.value.substring(0, maxLimit);
+				return false;
+			} else {
+				if (field.value.length >= maxLimit * .9)
+				{
+					field.className = "out-of-space";
+				} else if (field.value.length >= maxLimit * .8)
+				{
+					field.className = "almost-out-of-space";
+				} else {
+					field.className = "";
+				}
+				countfield.value = maxLimit - field.value.length;
+			}
+		}
+	</script>
 </head>
 <body>
-  <form action="">
+  <form action="#" method="get">
     <fieldset>
       <label for="call-date">Call Date</label>
       <input type="date" id="call-date" name="call-date"><br>
@@ -19,7 +40,9 @@
       <label for="status">Status</label>
       <select name="status" id="status">
         <option value="open">Open</option>
+				<option value="assigned">Assigned</option>
         <option value="closed">Closed</option>
+				<option value="archived">Archived</option>
       </select><br>
       <label for="customer">Customer</label>
       <select name="customer" id="customer">
@@ -27,6 +50,7 @@
         <option value="2">Antwerp</option>
         <option value="3">Brian Ohio</option>
         <option value="4">Jenning NRU</option>
+        <option value="5">Toledo</option>
       </select><br>
       <label for="assigned-to">Assigned To</label>
       <select name="assigned-to" id="assigned-to">
@@ -34,15 +58,21 @@
         <option value="2">Zooey Deschanel</option>
         <option value="3">Bob Newhart</option>
       </select><br>
+      <textarea onblur="textCounter(this,'counter',500);" onKeyUp="textCounter(this,'counter',500);" name="message" id="message" placeholder="Enter your message here." cols="40" rows="10"></textarea>
+			<br />
+			<label for="counter" class="char_remain">Remaining:</label>
+			<input disabled maxlength="3" size="3" value="500" id="counter">
+			<br />
       <button type="submit">Submit</button>
+		</fieldset>
   </form>
-
   <table>
   	<thead>
   		<tr>
   			<th>Date</th>
   			<th>Time</th>
   			<th>Name</th>
+				<th>Revision Type</th>
   			<th>Notes</th>
   		</tr>
   	</thead>
@@ -51,7 +81,29 @@
   			<td>07/14/2015</td>
   			<td>5:00PM</td>
   			<td>Sam Rockwell</td>
-  			<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+				<td>Initial</td>
+  			<td>Toledo plant struck by lightning. Need a tech assigned.</td>
+  		</tr>
+  		<tr>
+  			<td>07/15/2015</td>
+  			<td>12:17PM</td>
+  			<td>Zooey Deschanel</td>
+				<td>Changed Assigned</td>
+  			<td>Assigned item to tech: Bob Newhart.</td>
+  		</tr>
+  		<tr>
+  			<td>07/15/2015</td>
+  			<td>3:42PM</td>
+  			<td>Bob Newhart</td>
+				<td>Closed</td>
+  			<td>Removed lightning. Told customer I was Zeus.</td>
+  		</tr>
+  		<tr>
+  			<td>07/30/2015</td>
+  			<td>4:19PM</td>
+  			<td>Zooey Deschanel</td>
+				<td>Archived</td>
+  			<td>Item archived.</td>
   		</tr>
   	</tbody>
   </table>
@@ -63,7 +115,8 @@
     			<th>Name</th>
     			<th>Phone</th>
     			<th>Email</th>
-    			<th>Status</th>
+    			<th>Include</th>
+					<th>Primary</th>
     		</tr>
     	</thead>
     	<tbody>
@@ -72,42 +125,49 @@
     			<td>(123) 456-7890</td>
     			<td>samsmith@example.com</td>
     			<td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
     		</tr>
         <tr>
-          <td>Joe Dirt</td>
+          <td>Hannah Banana</td>
           <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
+          <td>hannah@example.com</td>
+          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
+        </tr>
+        <tr>
+          <td>Travis Barker</td>
+          <td>(123) 456-7890</td>
+          <td>travis@blink182.com</td>
+          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
+        </tr>
+        <tr>
+          <td>Chris Cornell</td>
+          <td>(123) 456-7890</td>
+          <td>mouthfullofrocks@soundgarden.com</td>
+          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
+        </tr>
+        <tr>
+          <td>Tina Fey</td>
+          <td>(123) 456-7890</td>
+          <td>funnygrl@30-rock.com</td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
           <td><input type="checkbox" name="contact-info" value="contact-info"></td>
         </tr>
         <tr>
-          <td>Joe Dirt</td>
+          <td>Chris Tucker</td>
           <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
+          <td>rubyrhod@5thelement.com</td>
           <td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
         </tr>
         <tr>
-          <td>Joe Dirt</td>
+          <td>Paul Giamatti</td>
           <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
+          <td>curly@paycheck.com</td>
           <td><input type="checkbox" name="contact-info" value="contact-info"></td>
-        </tr>
-        <tr>
-          <td>Joe Dirt</td>
-          <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
-          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
-        </tr>
-        <tr>
-          <td>Joe Dirt</td>
-          <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
-          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
-        </tr>
-        <tr>
-          <td>Joe Dirt</td>
-          <td>(123) 456-7890</td>
-          <td>joedirt@example.com</td>
-          <td><input type="checkbox" name="contact-info" value="contact-info"></td>
+					<td><input type="checkbox" name="primary-contact" value="contact-info"></td>
         </tr>
     	</tbody>
     </table>
