@@ -27,7 +27,7 @@ fieldset {
 /* Table Styles */
 
 table {
-  width: 500px;
+  width: auto;
   border-collapse: collapse;
   font-size: 14px;
 }
@@ -37,6 +37,10 @@ td {
   padding: 6px;
   text-align: left;
   border: solid 1px #ddd;
+}
+
+th {
+  white-space: nowrap;
 }
 
 /* Custom Contact Info */
